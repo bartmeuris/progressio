@@ -32,7 +32,7 @@ func (p *ProgressWriter) Write(b []byte) (n int, err error) {
 }
 
 func (p *ProgressWriter) Close() (err error) {
-	err = p.Close()
+	err = p.w.Close()
 	p.stopProgress()
 	return
 }
