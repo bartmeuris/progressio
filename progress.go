@@ -12,7 +12,7 @@ Usage is pretty simple:
 	preader, pchan := progressio.NewProgressReader(myreader, -1);
 	defer preader.Close()
 	go func() {
-		for p in range pchan {
+		for p := range pchan {
 			fmt.Printf("Progress: %s\n", p.String())
 		}
 	}
@@ -27,7 +27,7 @@ wraps it's os.File io.Reader object:
 	} else {
 		defer pr.Close()
 		go func() {
-			for p in range pc{
+			for p := range pc{
 				fmt.Printf("Progress: %s\n", p.String())
 			}
 		}
@@ -44,7 +44,7 @@ io.Reader:
 ▸   pwriter, pchan := progressio.NewProgressWriter(mywriter, -1);
 ▸   defer pwriter.Close()
 ▸   go func() {
-▸   ▸   for p in range pchan {
+▸   ▸   for p := range pchan {
 ▸   ▸   ▸   fmt.Printf("Progress: %s\n", p.String())
 ▸   ▸   }
 ▸   }
