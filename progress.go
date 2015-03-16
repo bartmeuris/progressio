@@ -105,7 +105,8 @@ func (p *ioProgress) updateProgress(written int64) {
 		p.progress += written
 	}
 	// Throttle sending updated, limit to UpdateFreq - which should be 100ms
-	if time.Since(p.lastSent) < UpdateFreq {
+	// Always send when finished
+	if (time.Since(p.lastSent) < UpdateFreq) && ( (p.size > 0) && (p.progress != p.size)) {
 		return
 	}
 	if p.startTime.IsZero() {
