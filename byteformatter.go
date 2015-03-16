@@ -3,25 +3,25 @@ package progressio
 import "fmt"
 
 const (
-	Byte int64       = 1
+	Byte int64 = 1
 
 	MetricMultiplier = 1000
-	KiloByte         = Byte     * MetricMultiplier
+	KiloByte         = Byte * MetricMultiplier
 	MegaByte         = KiloByte * MetricMultiplier
 	GigaByte         = MegaByte * MetricMultiplier
 	TeraByte         = GigaByte * MetricMultiplier
 	PetaByte         = TeraByte * MetricMultiplier
 
-	IECMultiplier    = 1024
-	KibiByte         = Byte     * IECMultiplier
-	MebiByte         = KibiByte * IECMultiplier
-	GibiByte         = MebiByte * IECMultiplier
-	TebiByte         = GibiByte * IECMultiplier
-	PebiByte         = TebiByte * IECMultiplier
+	IECMultiplier = 1024
+	KibiByte      = Byte * IECMultiplier
+	MebiByte      = KibiByte * IECMultiplier
+	GibiByte      = MebiByte * IECMultiplier
+	TebiByte      = GibiByte * IECMultiplier
+	PebiByte      = TebiByte * IECMultiplier
 
-	JEDECKiloByte    = KibiByte
-	JEDECMegaByte    = MebiByte
-	JEDECGigaByte    = GibiByte
+	JEDECKiloByte = KibiByte
+	JEDECMegaByte = MebiByte
+	JEDECGigaByte = GibiByte
 )
 
 var IECNames = []string{
@@ -41,7 +41,7 @@ var IECShorts = []string{
 	"PiB",
 }
 
-var JEDECShorts= []string{
+var JEDECShorts = []string{
 	"B",
 	"KB",
 	"MB",
@@ -73,34 +73,34 @@ var MetricNames = []string{
 }
 
 type SizeSystem struct {
-	Name string
+	Name       string
 	MultiPlier int64
-	Names []string
-	Shorts []string
+	Names      []string
+	Shorts     []string
 }
 
 var Metric = SizeSystem{
-	Name      : "metric",
+	Name:       "metric",
 	MultiPlier: MetricMultiplier,
-	Names     : MetricNames,
-	Shorts    : MetricShorts,
+	Names:      MetricNames,
+	Shorts:     MetricShorts,
 }
 var IEC = SizeSystem{
-	Name      : "IEC",
+	Name:       "IEC",
 	MultiPlier: IECMultiplier,
-	Names     : IECNames,
-	Shorts    : IECShorts,
+	Names:      IECNames,
+	Shorts:     IECShorts,
 }
 
 var JEDEC = SizeSystem{
-	Name      : "JEDEC",
+	Name:       "JEDEC",
 	MultiPlier: IECMultiplier,
-	Names     : JEDECNames,
-	Shorts    : JEDECShorts,
+	Names:      JEDECNames,
+	Shorts:     JEDECShorts,
 }
 
 func getUnit(ss SizeSystem, size int64) (divider int64, name, short string) {
-	if (size < 0) {
+	if size < 0 {
 		size = -size
 	}
 	if size == 0 {
@@ -126,22 +126,21 @@ func FormatSize(ss SizeSystem, size int64, short bool) string {
 		numfm = "%.0f"
 	}
 	if short {
-		return fmt.Sprintf(numfm + "%s", ds, shortnm)
+		return fmt.Sprintf(numfm+"%s", ds, shortnm)
 	}
-	return fmt.Sprintf(numfm + " %s", ds, name)
+	return fmt.Sprintf(numfm+" %s", ds, name)
 }
-
 
 func testUnit(ss SizeSystem, sz int64) []interface{} {
 	div, name, short := getUnit(ss, sz)
-	return []interface{}{ sz, div, name, short, FormatSize(ss, sz, true), FormatSize(ss, sz, false) }
+	return []interface{}{sz, div, name, short, FormatSize(ss, sz, true), FormatSize(ss, sz, false)}
 }
 
 func testSize(ss SizeSystem, sz int64) {
 	fmt.Printf("---- %s: %d ----\n", ss.Name, sz)
-	fmt.Printf("  -1: %d: M: %d | '%s', '%s' -- %s / %s\n", testUnit(ss, sz - 1)...)
+	fmt.Printf("  -1: %d: M: %d | '%s', '%s' -- %s / %s\n", testUnit(ss, sz-1)...)
 	fmt.Printf("  +0: %d: M: %d | '%s', '%s' -- %s / %s\n", testUnit(ss, sz)...)
-	fmt.Printf("  +1: %d: M: %d | '%s', '%s' -- %s / %s\n", testUnit(ss, sz + 1)...)
+	fmt.Printf("  +1: %d: M: %d | '%s', '%s' -- %s / %s\n", testUnit(ss, sz+1)...)
 }
 
 func test() {

@@ -63,4 +63,3 @@ func FormatDuration(dur time.Duration) string {
 func FormatSeconds(seconds int64) string {
 	return SecondFormatter(seconds).String()
 }
-

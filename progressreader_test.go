@@ -1,16 +1,16 @@
 package progressio
 
 import (
-	"testing"
-	"io"
-	"time"
 	"bytes"
 	"fmt"
+	"io"
 	"strings"
+	"testing"
+	"time"
 )
 
 const throttleTime = 15 * time.Millisecond
-const bufSize      = 15000000
+const bufSize = 15000000
 
 type throttleWriter struct {
 	lastTime time.Time
@@ -29,9 +29,10 @@ func (t *throttleWriter) Write(b []byte) (n int, err error) {
 }
 
 type throttleReader struct {
-	i io.Reader
+	i        io.Reader
 	lastTime time.Time
 }
+
 func (t *throttleReader) Read(b []byte) (n int, err error) {
 	sleep := time.Since(t.lastTime)
 	if t.lastTime.IsZero() {
@@ -54,7 +55,7 @@ func getReader() io.Reader {
 	}
 }
 
-func printProgress(msg string, t *testing.T, ch <- chan Progress) {
+func printProgress(msg string, t *testing.T, ch <-chan Progress) {
 	cs := ""
 	p := Progress{}
 	for p = range ch {
@@ -69,9 +70,9 @@ func printProgress(msg string, t *testing.T, ch <- chan Progress) {
 }
 
 func TestWriter(t *testing.T) {
-	r     := getReader()
+	r := getReader()
 	w, ch := NewProgressWriter(getWriter(), -1)
-	
+
 	go printProgress("TestWriter", t, ch)
 
 	io.Copy(w, r)
@@ -79,7 +80,7 @@ func TestWriter(t *testing.T) {
 }
 
 func TestWriterSize(t *testing.T) {
-	r     := getReader()
+	r := getReader()
 	w, ch := NewProgressWriter(getWriter(), -1)
 
 	go printProgress("TestWriterSize", t, ch)
@@ -90,8 +91,8 @@ func TestWriterSize(t *testing.T) {
 
 func TestReader(t *testing.T) {
 	r, ch := NewProgressReader(getReader(), -1)
-	w     := getWriter()
-	
+	w := getWriter()
+
 	go printProgress("TestReader", t, ch)
 
 	io.Copy(w, r)
@@ -100,11 +101,10 @@ func TestReader(t *testing.T) {
 
 func TestReaderSize(t *testing.T) {
 	r, ch := NewProgressReader(getReader(), bufSize)
-	w     := getWriter()
+	w := getWriter()
 
 	go printProgress("TestReaderSize", t, ch)
 
 	io.Copy(w, r)
 	t.Logf("Copy done\n")
 }
-
