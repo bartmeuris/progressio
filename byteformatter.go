@@ -2,28 +2,31 @@ package progressio
 
 import "fmt"
 
+// Various constants related to the units
 const (
-	Byte int64 = 1
+	Byte int64 = 1	// Byte is the representation of a single byte
 
-	MetricMultiplier = 1000
-	KiloByte         = Byte * MetricMultiplier
-	MegaByte         = KiloByte * MetricMultiplier
-	GigaByte         = MegaByte * MetricMultiplier
-	TeraByte         = GigaByte * MetricMultiplier
-	PetaByte         = TeraByte * MetricMultiplier
+	MetricMultiplier = 1000	// Metric uses 1 10^3 multiplier
+	KiloByte         = Byte * MetricMultiplier	// Metric unit "KiloByte" constant
+	MegaByte         = KiloByte * MetricMultiplier	// Metric unit MegaByte constant
+	GigaByte         = MegaByte * MetricMultiplier	// Metric unit GigaByte constant
+	TeraByte         = GigaByte * MetricMultiplier	// Metric unit TerraByte constant
+	PetaByte         = TeraByte * MetricMultiplier	// Metric unit PetaByte constant
 
-	IECMultiplier = 1024
-	KibiByte      = Byte * IECMultiplier
-	MebiByte      = KibiByte * IECMultiplier
-	GibiByte      = MebiByte * IECMultiplier
-	TebiByte      = GibiByte * IECMultiplier
-	PebiByte      = TebiByte * IECMultiplier
+	IECMultiplier = 1024	// IEC Standard multiplier, 1024 based
+	KibiByte      = Byte * IECMultiplier		// IEC standard unit KibiByte constant
+	MebiByte      = KibiByte * IECMultiplier	// IEC standard unit MebiByte constant
+	GibiByte      = MebiByte * IECMultiplier	// IEC standard unit GibiByte constant
+	TebiByte      = GibiByte * IECMultiplier	// IEC standard unit TebiByte constant
+	PebiByte      = TebiByte * IECMultiplier	// IEC standard unit PebiByte constant
 
-	JEDECKiloByte = KibiByte
-	JEDECMegaByte = MebiByte
-	JEDECGigaByte = GibiByte
+	JEDECKiloByte = KibiByte // JEDEC uses IEC multipliers, but Metric names, JEDEC KiloByte constant
+	JEDECMegaByte = MebiByte // JEDEC uses IEC multipliers, but Metric names, JEDEC MegaByte constant
+	JEDECGigaByte = GibiByte // JEDEC uses IEC multipliers, but Metric names, JEDEC GigaByte constant
 )
 
+
+// IECNames is an array containing the unit names for the IEC standards
 var IECNames = []string{
 	"byte",
 	"kibibyte",
@@ -32,6 +35,7 @@ var IECNames = []string{
 	"tebibyte",
 	"pebibyte",
 }
+// IECShorts is an array containing the shortened unit names for the IEC standard
 var IECShorts = []string{
 	"B",
 	"KiB",
@@ -41,19 +45,32 @@ var IECShorts = []string{
 	"PiB",
 }
 
-var JEDECShorts = []string{
-	"B",
-	"KB",
-	"MB",
-	"GB",
-}
+// JEDECNames is an array containing the unit names for the JEDEC standard
 var JEDECNames = []string{
 	"byte",
 	"kilobyte",
 	"megabyte",
 	"gigabyte",
 }
+// JEDECShorts is an array containing the shortened unit names for the JEDEC standard
+var JEDECShorts = []string{
+	"B",
+	"KB",
+	"MB",
+	"GB",
+}
 
+
+// MetricNames is an array containing the unit names for the metric units
+var MetricNames = []string{
+	"byte",
+	"kilobyte",
+	"megabyte",
+	"gigabyte",
+	"terabyte",
+	"petabyte",
+}
+// MetricShorts is an array containing the shortened unit names for the metric units
 var MetricShorts = []string{
 	"B",
 	"kB",
@@ -63,35 +80,30 @@ var MetricShorts = []string{
 	"PB",
 }
 
-var MetricNames = []string{
-	"byte",
-	"kilobyte",
-	"megabyte",
-	"gigabyte",
-	"terabyte",
-	"petabyte",
-}
 
+// SizeSystem is a structure representing a unit standard
 type SizeSystem struct {
-	Name       string
-	MultiPlier int64
-	Names      []string
-	Shorts     []string
+	Name       string	// The name of the unit standard
+	MultiPlier int64	// The multiplier used by the unit standard
+	Names      []string	// The names used by the unit standard
+	Shorts     []string	// The shortened names used by the unit standard
 }
 
+// Metric is a SizeSystem instance representing the metric system
 var Metric = SizeSystem{
 	Name:       "metric",
 	MultiPlier: MetricMultiplier,
 	Names:      MetricNames,
 	Shorts:     MetricShorts,
 }
+// IEC is a SizeSystem instance representing the IEC standard
 var IEC = SizeSystem{
 	Name:       "IEC",
 	MultiPlier: IECMultiplier,
 	Names:      IECNames,
 	Shorts:     IECShorts,
 }
-
+// JEDEC is a SizeSystem instance representing the JEDEC standard
 var JEDEC = SizeSystem{
 	Name:       "JEDEC",
 	MultiPlier: IECMultiplier,
@@ -118,6 +130,8 @@ func getUnit(ss SizeSystem, size int64) (divider int64, name, short string) {
 	return div, ss.Names[len(ss.Names)-1], ss.Shorts[len(ss.Shorts)-1]
 }
 
+// FormatSize formats a number of bytes using the given unit standard system.
+// If the 'short' flag is set to true, it uses the shortened names.
 func FormatSize(ss SizeSystem, size int64, short bool) string {
 	div, name, shortnm := getUnit(ss, size)
 	ds := float64(size) / float64(div)
