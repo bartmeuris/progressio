@@ -33,14 +33,14 @@ Some of these statistics are not available if the size was not specified up fron
 
 ```
 type Progress struct {
-▸   Transferred int64         // Transferred data in bytes
-▸   TotalSize   int64         // Total size of the transfer in bytes. <= 0 if size is unknown.
-▸   Percent     float64       // If the size is known, the progress of the transfer in %
-▸   SpeedAvg    int64         // Bytes/sec average over the entire transfer
-▸   Speed       int64         // Bytes/sec of the last few reads/writes
-▸   Remaining   time.Duration // Estimated time remaining, only available if the size is known.
-▸   StartTime   time.Time     // When the transfer was started
-▸   StopTime    time.Time     // only specified when the transfer is completed: when the transfer was stopped
+    Transferred int64         // Transferred data in bytes
+    TotalSize   int64         // Total size of the transfer in bytes. <= 0 if size is unknown.
+    Percent     float64       // If the size is known, the progress of the transfer in %
+    SpeedAvg    int64         // Bytes/sec average over the entire transfer
+    Speed       int64         // Bytes/sec of the last few reads/writes
+    Remaining   time.Duration // Estimated time remaining, only available if the size is known.
+    StartTime   time.Time     // When the transfer was started
+    StopTime    time.Time     // only specified when the transfer is completed: when the transfer was stopped
 }
 
 ```
