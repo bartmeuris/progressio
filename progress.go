@@ -9,7 +9,8 @@ progressio.ProgressWriter objects in order to clean everything up.
 
 Usage is pretty simple:
 
-	preader, pchan := progressio.NewProgressReader(myreader, -1);
+
+	preader, pchan := progressio.NewProgressReader(myreader, -1)
 	defer preader.Close()
 	go func() {
 		for p := range pchan {
@@ -19,8 +20,10 @@ Usage is pretty simple:
 	// read from your new reader object
 	io.Copy(mywriter, preader)
 
+
 A helper function is available that opens a file, determines it's size, and
 wraps it's os.File io.Reader object:
+
 
 	if pr, pc, err := progressio.NewProgressFileReader(myfile); err != nil {
 		return err
@@ -35,13 +38,15 @@ wraps it's os.File io.Reader object:
 		io.Copy(mywriter, pr)
 	}
 
+
 A wrapper for an io.WriterCloser is available too, but no helper function 
 is available to write to an os.File since the target size is not known.
 Usually, wrapping the io.Writer is more accurate, since writing potentially
 takes up more time and happens last. Useage is similar to wrapping the 
 io.Reader:
 
-▸   pwriter, pchan := progressio.NewProgressWriter(mywriter, -1);
+
+▸   pwriter, pchan := progressio.NewProgressWriter(mywriter, -1)
 ▸   defer pwriter.Close()
 ▸   go func() {
 ▸   ▸   for p := range pchan {
@@ -50,6 +55,7 @@ io.Reader:
 ▸   }
 ▸   // write to your new writer object
 ▸   io.Copy(pwriter, myreader)
+
 
 Note that you can also implement your own formatting. See the String() function
 implementation or consult the Progress struct layout and documentation
