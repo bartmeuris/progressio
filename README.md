@@ -78,3 +78,10 @@ func copyProgress(w io.Writer, r io.Reader, size int64) (written int64, err erro
 }
 ```
 
+## TODO
+
+* Add tests
+* Clean up documentation
+* Document byte/duration formatters
+* Extract byte/duration formatters and place in separate library (?)
+
