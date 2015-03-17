@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"io"
 	"strings"
-	"testing"
 	"time"
 )
 
@@ -55,7 +54,7 @@ func getReader() io.Reader {
 	}
 }
 
-func printProgress(msg string, t *testing.T, ch <-chan Progress) {
+func printProgress(msg string, ch <-chan Progress) {
 	cs := ""
 	p := Progress{}
 	for p = range ch {
@@ -69,42 +68,42 @@ func printProgress(msg string, t *testing.T, ch <-chan Progress) {
 	fmt.Printf("\n%s\n", p.String())
 }
 
-func TestWriter(t *testing.T) {
+func ExampleWriter() {
 	r := getReader()
 	w, ch := NewProgressWriter(getWriter(), -1)
 
-	go printProgress("TestWriter", t, ch)
+	go printProgress("TestWriter", ch)
 
 	io.Copy(w, r)
-	t.Logf("Copy done\n")
+	fmt.Printf("Copy done\n")
 }
 
-func TestWriterSize(t *testing.T) {
+func ExampleWriterSize() {
 	r := getReader()
 	w, ch := NewProgressWriter(getWriter(), -1)
 
-	go printProgress("TestWriterSize", t, ch)
+	go printProgress("TestWriterSize", ch)
 
 	io.Copy(w, r)
-	t.Logf("Copy done\n")
+	fmt.Printf("Copy done\n")
 }
 
-func TestReader(t *testing.T) {
+func ExampleReader() {
 	r, ch := NewProgressReader(getReader(), -1)
 	w := getWriter()
 
-	go printProgress("TestReader", t, ch)
+	go printProgress("TestReader", ch)
 
 	io.Copy(w, r)
-	t.Logf("Copy done\n")
+	fmt.Printf("Copy done\n")
 }
 
-func TestReaderSize(t *testing.T) {
+func ExampleReaderSize() {
 	r, ch := NewProgressReader(getReader(), bufSize)
 	w := getWriter()
 
-	go printProgress("TestReaderSize", t, ch)
+	go printProgress("TestReaderSize", ch)
 
 	io.Copy(w, r)
-	t.Logf("Copy done\n")
+	fmt.Printf("Copy done\n")
 }
