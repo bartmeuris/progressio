@@ -46,15 +46,15 @@ takes up more time and happens last. Useage is similar to wrapping the
 io.Reader:
 
 
-▸   pwriter, pchan := progressio.NewProgressWriter(mywriter, -1)
-▸   defer pwriter.Close()
-▸   go func() {
-▸   ▸   for p := range pchan {
-▸   ▸   ▸   fmt.Printf("Progress: %s\n", p.String())
-▸   ▸   }
-▸   }
-▸   // write to your new writer object
-▸   io.Copy(pwriter, myreader)
+	pwriter, pchan := progressio.NewProgressWriter(mywriter, -1)
+	defer pwriter.Close()
+	go func() {
+		for p := range pchan {
+			fmt.Printf("Progress: %s\n", p.String())
+		}
+	}
+	// write to your new writer object
+	io.Copy(pwriter, myreader)
 
 
 Note that you can also implement your own formatting. See the String() function
