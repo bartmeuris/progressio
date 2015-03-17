@@ -16,7 +16,7 @@ type ProgressReader struct {
 // NewProgressFileReader creates a new ProgressReader based on a file. It teturns a
 // ProgressReader object and a channel on success, or an error on failure.
 func NewProgressFileReader(file string) (*ProgressReader, <-chan Progress, error) {
-	f, ferr := os.Open(file);
+	f, ferr := os.Open(file)
 	if ferr != nil {
 		return nil, nil, ferr
 	}

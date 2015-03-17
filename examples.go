@@ -68,7 +68,7 @@ func printProgress(msg string, ch <-chan Progress) {
 	fmt.Printf("\n%s\n", p.String())
 }
 
-// ExampleWriter is an example of using the progressio package with an 
+// ExampleWriter is an example of using the progressio package with an
 // io.Writer without knowing the amount of bytes to be processed.
 func ExampleWriter() {
 	r := getReader()
@@ -92,7 +92,7 @@ func ExampleWriterSize() {
 	fmt.Printf("Copy done\n")
 }
 
-// ExampleReader is an example of using the progressio package with an 
+// ExampleReader is an example of using the progressio package with an
 // io.Reader without knowing the amount of bytes to be processed.
 func ExampleReader() {
 	r, ch := NewProgressReader(getReader(), -1)

@@ -3,10 +3,8 @@ package progressio
 import "fmt"
 import "time"
 
-
 // SecondFormatter represents a duration in seconds
 type SecondFormatter int64
-
 
 // Weeks returns the amount of whole weeks represented by the
 // SecondFormatter instance
@@ -90,4 +88,3 @@ func FormatDuration(dur time.Duration) string {
 func FormatSeconds(seconds int64) string {
 	return SecondFormatter(seconds).String()
 }
-

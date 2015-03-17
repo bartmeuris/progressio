@@ -39,10 +39,10 @@ wraps it's os.File io.Reader object:
 	}
 
 
-A wrapper for an io.WriterCloser is available too, but no helper function 
+A wrapper for an io.WriterCloser is available too, but no helper function
 is available to write to an os.File since the target size is not known.
 Usually, wrapping the io.Writer is more accurate, since writing potentially
-takes up more time and happens last. Useage is similar to wrapping the 
+takes up more time and happens last. Useage is similar to wrapping the
 io.Reader:
 
 
