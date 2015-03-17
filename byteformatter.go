@@ -27,7 +27,7 @@ const (
 
 
 // IECNames is an array containing the unit names for the IEC standards
-var IECNames = []string{
+var _IECNames = []string{
 	"byte",
 	"kibibyte",
 	"mebibyte",
@@ -36,7 +36,7 @@ var IECNames = []string{
 	"pebibyte",
 }
 // IECShorts is an array containing the shortened unit names for the IEC standard
-var IECShorts = []string{
+var _IECShorts = []string{
 	"B",
 	"KiB",
 	"MiB",
@@ -46,14 +46,14 @@ var IECShorts = []string{
 }
 
 // JEDECNames is an array containing the unit names for the JEDEC standard
-var JEDECNames = []string{
+var _JEDECNames = []string{
 	"byte",
 	"kilobyte",
 	"megabyte",
 	"gigabyte",
 }
 // JEDECShorts is an array containing the shortened unit names for the JEDEC standard
-var JEDECShorts = []string{
+var _JEDECShorts = []string{
 	"B",
 	"KB",
 	"MB",
@@ -62,7 +62,7 @@ var JEDECShorts = []string{
 
 
 // MetricNames is an array containing the unit names for the metric units
-var MetricNames = []string{
+var _MetricNames = []string{
 	"byte",
 	"kilobyte",
 	"megabyte",
@@ -71,7 +71,7 @@ var MetricNames = []string{
 	"petabyte",
 }
 // MetricShorts is an array containing the shortened unit names for the metric units
-var MetricShorts = []string{
+var _MetricShorts = []string{
 	"B",
 	"kB",
 	"MB",
@@ -93,22 +93,23 @@ type SizeSystem struct {
 var Metric = SizeSystem{
 	Name:       "metric",
 	MultiPlier: MetricMultiplier,
-	Names:      MetricNames,
-	Shorts:     MetricShorts,
+	Names:      _MetricNames,
+	Shorts:     _MetricShorts,
 }
 // IEC is a SizeSystem instance representing the IEC standard
 var IEC = SizeSystem{
 	Name:       "IEC",
 	MultiPlier: IECMultiplier,
-	Names:      IECNames,
-	Shorts:     IECShorts,
+	Names:      _IECNames,
+	Shorts:     _IECShorts,
 }
+
 // JEDEC is a SizeSystem instance representing the JEDEC standard
 var JEDEC = SizeSystem{
 	Name:       "JEDEC",
 	MultiPlier: IECMultiplier,
-	Names:      JEDECNames,
-	Shorts:     JEDECShorts,
+	Names:      _JEDECNames,
+	Shorts:     _JEDECShorts,
 }
 
 func getUnit(ss SizeSystem, size int64) (divider int64, name, short string) {
@@ -145,6 +146,7 @@ func FormatSize(ss SizeSystem, size int64, short bool) string {
 	return fmt.Sprintf(numfm+" %s", ds, name)
 }
 
+/*
 func testUnit(ss SizeSystem, sz int64) []interface{} {
 	div, name, short := getUnit(ss, sz)
 	return []interface{}{sz, div, name, short, FormatSize(ss, sz, true), FormatSize(ss, sz, false)}
@@ -183,3 +185,4 @@ func test() {
 	testSize(JEDEC, TebiByte)
 	testSize(JEDEC, PebiByte)
 }
+*/
