@@ -90,7 +90,7 @@ func TestIOProgress(t *testing.T) {
 	iop.startTime = time.Now().Add(time.Second * -10)
 	go iop.updateProgress(0)
 	p := <-iop.ch
-	t.Logf("P: %p\n", p)
+	t.Logf("P: %p\n", &p)
 	t.Logf("P: %s\n", p.String())
 	//t.Fail()
 }

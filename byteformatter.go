@@ -129,7 +129,7 @@ func getUnit(ss SizeSystem, size int64) (divider int64, name, short string) {
 		}
 		return div / ss.MultiPlier, ss.Names[i-1], ss.Shorts[i-1]
 	}
-	return div, ss.Names[len(ss.Names)-1], ss.Shorts[len(ss.Shorts)-1]
+	return div / ss.MultiPlier, ss.Names[len(ss.Names)-1], ss.Shorts[len(ss.Shorts)-1]
 }
 
 // FormatSize formats a number of bytes using the given unit standard system.
